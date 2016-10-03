@@ -1,4 +1,6 @@
 <?php
+# REV 1.0.0
+
 $name = $_GET[ "name" ]; # Get values to set
 $password = $_GET[ "password" ];
 
@@ -18,7 +20,7 @@ if( !$alreadyExists ) # If username is not in use
 {
     $UUID = sizeof( $accounts ) + 1;
 
-    $toAppend = array( "username" => $username, "password" => hash( "sha256", $password ) ); # Create append list
+    $toAppend = array( "username" => $name, "password" => hash( "sha256", $password ) ); # Create append list
 
     mkdir( "../USER_STORE/" . $UUID ); # Append user data
     $file = fopen( "../USER_STORE/" . $UUID . "/accountinfo.json", "w" );
