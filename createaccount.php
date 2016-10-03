@@ -3,13 +3,12 @@ $name = $_GET[ "name" ]; # Get values to set
 $password = $_GET[ "password" ];
 
 $file = fopen( "../USER_STORE/userindex.json", "r" ); # Load user index
-$accounts = json_decode( fread($file, filesize( "../USER_STORE/userindex.json" ) ) );
+$accounts = json_decode( fread($file, filesize( "../USER_STORE/userindex.json" ) ), true );
 fclose($file);
 
 $alreadyExists = false; # Check to see if username already is in use
-foreach( $accounts as $key => $value ) 
-{
-    if( $value == $username )
+foreach($accounts as $val) {
+    if( $val == $name )
     {
         $alreadyExists = true;
     }
@@ -28,9 +27,9 @@ if( !$alreadyExists ) # If username is not in use
 
     $accounts[ $UUID ] = $name; # Create new user index
 
-    $file = fopen( "../USER_STORE/userindex.json", "w" ); # Update user index
-    fwrite( json_encode( $accounts ) );
-    fclose($file);
+    $file = fopen( "../USER_STORE/userindex.json", "w" ); # Update userindex
+    fwrite( $file, json_encode( $accounts ) );
+    fclose( $file );
 
     $return = array( "returnValue" => "created" ); # Return message
     echo( json_encode( $return ) );
