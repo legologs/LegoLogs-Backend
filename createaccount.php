@@ -20,7 +20,7 @@ if( !$alreadyExists ) # If username is not in use
 {
     $UUID = sizeof( $accounts ) + 1;
 
-    $toAppend = array( "username" => $name, "password" => hash( "sha256", $password ) ); # Create append list
+    $toAppend = array( "username" => $name, "password" => hash( "sha256", $password ) );
 
     mkdir( "../USER_STORE/" . $UUID ); # Append user data
     $file = fopen( "../USER_STORE/" . $UUID . "/accountinfo.json", "w" );
@@ -33,12 +33,12 @@ if( !$alreadyExists ) # If username is not in use
     fwrite( $file, json_encode( $accounts ) );
     fclose( $file );
 
-    $return = array( "returnValue" => "created" ); # Return message
+    $return = array( "value" => "created" ); # Return message
     echo( json_encode( $return ) );
 }
 else # Account is in use
 {
-    $return = array( "returnValue" => "account_in_use" ); # Return error message
+    $return = array( "value" => "account_in_use" ); # Return error message
     echo( json_encode( $return ) );
 }
 ?>
